@@ -1,0 +1,120 @@
+
+body {
+    z-index: 1;
+    background: #4DA6FF;
+}
+
+/*******************/
+/* horizontal menu */
+/*******************/
+
+div.div_menu_table {
+    display: table;
+    width: 100%;
+    background-color: #66B3FF;  /* #3064F6 */
+    border-spacing:5px; /*cellspacing:poor IE support for  this*/
+
+    /* border-collapse: collapse; */
+
+    z-index: 2;
+}
+
+div.div_row {
+    display:table-row;
+    width:auto;
+}
+
+div.div_cell {
+    float:left; /*fix for  buggy browsers*/
+    display:table-column;
+    width: auto;
+}
+
+/* take dots away */
+.menu-tabbed-horiz {
+    list-style: none;
+    position: relative; z-index: 2;
+
+    padding : 0px;
+    margin  : 0px;
+}
+
+/* orient menu horizontal */
+.menu-tabbed-horiz li {
+    float: left;
+
+    position: relative;
+    display: block;
+
+    border-left: 2px solid white;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+
+    width : 200px;
+}
+
+.menu-tabbed-horiz li:last-child {
+    border-right: 2px solid white;
+}
+
+/* property of header hyperlink */
+.menu-tabbed-horiz li a {
+    padding: 7px 10px;
+
+    font-family: Arial, Sans-serif;
+    font-size:   15px;
+    font-weight: bold;
+
+}
+
+/* any hyperlinks */
+.menu-tabbed-horiz a {
+    text-decoration: none;
+    display: block;
+    color: white;
+    white-space: nowrap;
+}
+
+.menu-tabbed-horiz a:hover {
+    background: #1C97FD;  /* #0261B0 */
+    color: white;
+}
+
+/* highlight header when header is being hovered */
+.menu-tabbed-horiz li:hover > a {
+}
+
+/* highlight children when children are being hovered */
+.menu-tabbed-horiz ul li:hover > a {
+}
+
+/* children */
+.menu-tabbed-horiz li ul {
+
+    visibility: hidden;  /* show on mouse over */
+    position: absolute;
+
+    padding-left: 0;  /* align vertically with the header */
+    margin-left: -2px;
+}
+
+/* children */
+.menu-tabbed-horiz ul li {
+
+    width : 200px;
+    background: #66B3FF;  /* #3064F6 */
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 0;
+}
+
+.menu-tabbed-horiz li ul:last-child {
+    border-bottom: 2px solid white;
+}
+
+/* drop down menu */
+.menu-tabbed-horiz li:hover > ul {
+    visibility: visible;
+}
