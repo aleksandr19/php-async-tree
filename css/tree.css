@@ -1,0 +1,13 @@
+ul.node {
+    list-style: none;
+    padding-left: 17px;
+    margin-top: 0;
+}
+
+ul.node li {
+    height: 18px;
+}
+
+img.tree_img {
+    vertical-align: middle;
+}
