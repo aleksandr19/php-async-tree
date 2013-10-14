@@ -63,12 +63,25 @@ class dbClass {
     }
     
     // returns multidimensional array of the node of the first level
-    public function getBaseNodes() {
+    public function getNodes ($parent_node_id) {
     
-        $str_sql = "select * from tree where parent_id in " .
-            " (select `id` from tree where parent_id = -1)";
+        $str_sql = "select t.`id`, t.parent_id, t.`level`, " .
+            "t.`description`, t.image_name, agg.cnt " .
+            "from tree t left outer join " .
+            "(select count(parent_id) as cnt, parent_id from tree group by parent_id) as agg " .
+            "on t.`id` = agg.parent_id " .
+            "where t.parent_id = ?";
 
-        $result = mysqli_query ($this -> conn, $str_sql);
+        $stmt = mysqli_prepare ($this -> conn, $str_sql);
+        mysqli_stmt_bind_param ($stmt, "i", $parent_node_id);
+
+        /* execute query */
+        mysqli_stmt_execute($stmt);
+
+        /* bind result variables */
+        $result = mysqli_stmt_get_result ($stmt);
+
+        // $result = mysqli_query ($this -> conn, $str_sql);
 
         if ($result === false)
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
@@ -77,13 +90,25 @@ class dbClass {
 
         while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC))
         {
+
+            /*
+            printf ("id=%d parent_id=%d level=%d desc=%s img_name=%s cnt=%d\n<br />",
+                $row["id"],
+                $row["parent_id"],
+                $row["level"],
+                $row["description"],
+                $row["image_name"],
+                $row["cnt"]);
+            */
+        
             array_push ($arr,
                 array (
                     "id"          => $row["id"],
                     "parent_id"   => $row["parent_id"],
                     "level"       => $row["level"],
                     "description" => $row["description"],
-                    "image_name"   => $row["image_name"]
+                    "image_name"  => $row["image_name"],
+                    "cnt"         => $row["cnt"]
                 )
             );
         }
@@ -92,6 +117,10 @@ class dbClass {
         mysqli_free_result($result);
         
         return $arr;    
+    }
+    
+    public function getRootId() {
+        return $this -> getSingleValue ("select `id` from tree where parent_id = -1");
     }
 
     private function getSingleValue ($str_sql) {
