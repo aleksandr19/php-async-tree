@@ -1,11 +1,8 @@
 <?php
 
-define ("PLUS",        "images/plus.gif");
-define ("MINUS",       "images/minus.gif");
-define ("PLUSBOTTOM",  "images/plusbottom.gif");
-define ("MINUSBOTTOM", "images/minusbottom.gif");
-define ("JOIN",        "images/join.gif");
-define ("JOINBOTTOM",  "images/joinbottom.gif");
+define ("EMPTYIMG", "images/empty.gif");
+define ("PLUS",     "images/plus.gif");
+define ("MINUS",    "images/minus.gif");
 
 ?>
 
@@ -13,12 +10,9 @@ define ("JOINBOTTOM",  "images/joinbottom.gif");
 
     // create constants for JavaScript
 
-    var PLUS        = "<?php echo PLUS ?>";
-    var MINUS       = "<?php echo MINUS ?>";
-    var PLUSBOTTOM  = "<?php echo PLUSBOTTOM ?>";
-    var MINUSBOTTOM = "<?php echo MINUSBOTTOM ?>";
-    var JOIN        = "<?php echo JOIN ?>";
-    var JOINBOTTOM  = "<?php echo JOINBOTTOM ?>";
+    var EMPTYIMG = "<?php echo EMPTYIMG ?>";
+    var PLUS     = "<?php echo PLUS ?>";
+    var MINUS    = "<?php echo MINUS ?>";
 
 </script>
 
@@ -39,18 +33,10 @@ class treeClass {
             echo "<li id='l" . $id . "' lastnode='" . (($is_last_node) ? "true" : "false") . "' >\n";
 
             // image of plus sing
-            if (! $is_last_node) {
-                if ($level_data [$i]["cnt"] > 0)
-                    $plus_image_name = PLUS;
-                else
-                    $plus_image_name = JOIN;
-            }
-            else {
-                if ($level_data [$i]["cnt"] > 0)
-                    $plus_image_name = PLUSBOTTOM;
-                else
-                    $plus_image_name = JOINBOTTOM;
-            }
+            if ($level_data [$i]["cnt"] > 0)
+                $plus_image_name = PLUS;
+            else
+                $plus_image_name = EMPTYIMG;
 
             // image
             $image_name = $level_data [$i]["image_name"];

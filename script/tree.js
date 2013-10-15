@@ -6,20 +6,16 @@ function clickNode (ele) {
 
     var j_plus_sign = $(ele);                       // jQuery variable of plus sign
     var j_kids_ul   = $("ul#n" + str_node_id);      // jQuery variable of ul containing children nodes
-    var j_li        = $("li#l" + str_node_id);             // jQuery variable of li
+    
+    // var j_li        = $("li#l" + str_node_id);  // jQuery variable of li
+    // if (j_li.attr("lastnode") == "false")
+    
     var j_img       = j_plus_sign.children('img').eq(0);   // jQuery variable of plus sign image
     
-    // alert (j_kids_ul.css ("display"));
-
     // if node is expanded, collapse it
     if (j_kids_ul.css ("display").toLowerCase() == "block" && j_kids_ul.html() != "") {
-        j_kids_ul.css ("display", "none");
-        
-        if (j_li.attr("lastnode") == "false")
-            j_img.attr ("src", PLUS);
-        else
-            j_img.attr ("src", PLUSBOTTOM);
-
+        j_kids_ul.css ("display", "none");        
+        j_img.attr ("src", PLUS);
         return;
     }
     
@@ -30,10 +26,7 @@ function clickNode (ele) {
     if (j_kids_ul.html() == "")
         setNodeHtml (str_node_id);
  
-    if (j_li.attr("lastnode") == "false")
-        j_img.attr ("src", MINUS);
-    else
-        j_img.attr ("src", MINUSBOTTOM);
+    j_img.attr ("src", MINUS);
 }
 
 function setNodeHtml (s_node_id) {

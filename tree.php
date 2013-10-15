@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="css/tree.css" type="text/css" />
 
+<script src="script/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="script/tree.js" type="text/javascript"></script>
 
 <?php

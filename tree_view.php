@@ -6,7 +6,6 @@
 <title>Tree</title>
 
 <script src="script/modernizr-latest.js" type="text/javascript"></script>
-<script src="script/jquery-1.10.2.js" type="text/javascript"></script>
 
 </head>
 <body>
