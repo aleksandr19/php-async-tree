@@ -32,9 +32,9 @@
 
 <div>
 
-    <img class="tree_img" src="images/computer.png">&nbsp;root
-    
-    <ul class="node">
+    <img class="tree_img" src="images/computer.png" />&nbsp;root
+
+    <ul class="node" style="padding-top: 2px;">
     
     <?php
 
