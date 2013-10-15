@@ -34,7 +34,9 @@ class treeClass {
 
             // plus sign, image, text
             echo "<a href='javascript: void(null)' " .
-                "onClick='javascript: setNodeHtml (" . $id . ");' >" .
+            
+                // clickNode function is defined in script/tree.js
+                "onClick='javascript: clickNode (" . $id . ");' >" .
                 "<img class='tree_img' src='images/" . $plus_image_name . "'>" .
                 "</a>" .
                 "<img class='tree_img' src='custom_images/" . $image_name . "'>" .

@@ -1,3 +1,7 @@
+function clickNode (s_node_id) {
+    setNodeHtml (s_node_id);
+}
+
 function setNodeHtml (s_node_id) {
 
 // data
@@ -24,7 +28,4 @@ function setNodeHtml (s_node_id) {
             alert(thrownError);
       }
     });
-}
-
-function arrayToHtml (data) {
 }
