@@ -14,7 +14,7 @@
           $level_data = $db_class -> getNodes ($_GET ["nodeid"]);
 
           $tree_class = new treeClass();
-          $tree_class -> htmlFromArray ($level_data);
+          echo $tree_class -> htmlFromArray ($level_data);
 
         } catch (Exception $e) {
             echo $e -> getMessage();

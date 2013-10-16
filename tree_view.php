@@ -6,6 +6,9 @@
 <title>Tree</title>
 
 <script src="script/modernizr-latest.js" type="text/javascript"></script>
+<script src="script/jquery-1.10.2.js" type="text/javascript"></script>
+
+<?php include "tree.php"; ?>
 
 </head>
 <body>
@@ -17,16 +20,14 @@
     &nbsp;
     <a href="#"><img src="images/delete.gif" title="delete"/></a>
     &nbsp;
-    <a href="#"><img src="images/refresh.png" title="refresh"/></a>
+    <a href="javascript: void(null);" onClick="javascript: reload_tree (callback_function);"
+    ><img src="images/refresh.png" title="refresh"/></a>
 </div>
 
 <br />
 
-<?php
-
-    include "tree.php";
-
-?>
+<div id="tree_container">
+</div>
 
 </body>
 </html>

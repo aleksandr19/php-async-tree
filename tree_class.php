@@ -22,6 +22,8 @@ class treeClass {
 
     // returns html, each line contains plus sing, image, and text
     public function htmlFromArray ($level_data) {
+    
+        $str_html = "";
 
         $node_count = sizeof ($level_data);
 
@@ -30,7 +32,7 @@ class treeClass {
             $is_last_node = ($i == $node_count - 1);
             $id = $level_data [$i]["id"];
 
-            echo "<li id='l" . $id . "' lastnode='" . (($is_last_node) ? "true" : "false") . "' >\n";
+            $str_html .= "<li id='l" . $id . "' lastnode='" . (($is_last_node) ? "true" : "false") . "' >\n";
 
             // image of plus sing
             if ($level_data [$i]["cnt"] > 0)
@@ -44,7 +46,7 @@ class treeClass {
                 $image_name = "empty.gif";
 
             // plus sign, image, text
-            echo "<a class='plus' id='p" . $id . "' " .
+            $str_html .=  "<a class='plus' id='p" . $id . "' " .
                 "href='javascript: void(null)' " .
             
                 // clickNode function is defined in script/tree.js
@@ -54,10 +56,11 @@ class treeClass {
                 "<img class='tree_img' src='custom_images/" . $image_name . "'/>" .
                 $level_data [$i]["description"] . "\n";
                 
-            echo "<ul class='node' style='display: none;' id='n" . $id . "'></ul>\n";
+            $str_html .=  "<ul class='node' style='display: none;' id='n" . $id . "'></ul>\n";
 
-            echo "</li>\n";
+            $str_html .=  "</li>\n";
         }
+        return $str_html;
     }
 
 }

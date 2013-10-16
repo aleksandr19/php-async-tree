@@ -53,6 +53,6 @@ function setNodeHtml (s_node_id) {
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
-      }
+        }
     });
 }
