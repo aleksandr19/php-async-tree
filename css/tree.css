@@ -11,3 +11,8 @@ ul.node li {
 img.tree_img {
     vertical-align: middle;
 }
+
+a.description {
+    text-decoration: none;
+    color: blue;
+}

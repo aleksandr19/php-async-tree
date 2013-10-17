@@ -10,8 +10,8 @@ class dbClass {
 
     public function insertRoot()  {
 
-        $query = "insert into tree (parent_id, level, description) " .
-            " select -1, 0, 'root' from tree having count(`id`) = 0";
+        $query = "insert into " . TABLE_NAME . " (parent_id, level, description) " .
+            " select -1, 0, 'root' from " . TABLE_NAME . " having count(`id`) = 0";
 
         $stmt = mysqli_prepare ($this -> conn, $query);
 
@@ -33,12 +33,12 @@ class dbClass {
         if (empty ($parent_id))
             throw new Exception ("parent id is not provided");
         
-        $str_sql = "select `level` from tree where `id` = ?";
+        $str_sql = "select `level` from " . TABLE_NAME . " where `id` = ?";
         $level = $this -> getSingleValueWithParam ($str_sql, $parent_id);
         
         echo "level = " . $level . "<br>\n";
 
-        $query = "insert into tree (parent_id, `level`, `description`, image_name) " .
+        $query = "insert into " . TABLE_NAME . " (parent_id, `level`, `description`, image_name) " .
             " values (?, ?, ?, ?)";
 
         $stmt = mysqli_prepare ($this -> conn, $query);
@@ -65,10 +65,12 @@ class dbClass {
     // returns multidimensional array of the node of the first level
     public function getNodes ($parent_node_id) {
     
+        // nodes data and information wheither they have children
         $str_sql = "select t.`id`, t.parent_id, t.`level`, " .
-            "t.`description`, t.image_name, agg.cnt " .
-            "from tree t left outer join " .
-            "(select count(parent_id) as cnt, parent_id from tree group by parent_id) as agg " .
+            "t.`description`, t.image_name, t.`url`, agg.cnt " .
+            "from " . TABLE_NAME . " t left outer join " .
+            "(select count(parent_id) as cnt, parent_id from " . TABLE_NAME .
+            " group by parent_id) as agg " .
             "on t.`id` = agg.parent_id " .
             "where t.parent_id = ?";
 
@@ -108,6 +110,7 @@ class dbClass {
                     "level"       => $row["level"],
                     "description" => $row["description"],
                     "image_name"  => $row["image_name"],
+                    "url"         => $row["url"],
                     "cnt"         => $row["cnt"]
                 )
             );
@@ -120,7 +123,7 @@ class dbClass {
     }
     
     public function getRootId() {
-        return $this -> getSingleValue ("select `id` from tree where parent_id = -1");
+        return $this -> getSingleValue ("select `id` from " . TABLE_NAME . " where parent_id = -1");
     }
 
     private function getSingleValue ($str_sql) {
@@ -156,7 +159,7 @@ class dbClass {
 
 function sample ($conn) {
 
-    $query = "insert into tree (`id`, parent_id) values (?, ?)";
+    $query = "insert into " . TABLE_NAME . " (`id`, parent_id) values (?, ?)";
     $stmt = mysqli_prepare ($conn, $query) or die (mysqli_error ($conn));
 
     /* bind parameters for markers */

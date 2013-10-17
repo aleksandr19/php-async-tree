@@ -1,4 +1,4 @@
-function clickNode (ele) {
+function clickPlus (ele) {
 
     // ele is a plus sign
     
@@ -29,6 +29,26 @@ function clickNode (ele) {
     j_img.attr ("src", MINUS);
 }
 
+function clickDescription (ele) {
+
+    // ele is description hyperlink
+    
+    var str_node_id = ele.id.substr (1);  // "p2".substr (1) = "2"
+    var j_description = $(ele);
+    
+    // make all nodes normal
+    $("a.description").each (
+        function() {
+            $(this).css ("font-weight", "normal");
+        }
+    );
+
+    // make clicked node bold
+    j_description.css ("font-weight", "bold");
+
+
+}
+
 function setNodeHtml (s_node_id) {
 
 // data
@@ -42,7 +62,7 @@ function setNodeHtml (s_node_id) {
         type: "GET",
         dataType: "text",
         data: "nodeid=" + s_node_id,
-        success: function (data) { // Variable data contains the data we get from serverside
+        success: function (data) {  // Variable data contains the data we get from serverside
 
             if (! jQuery.isEmptyObject (data)) {
                 $("#n" + s_node_id).html (data);
