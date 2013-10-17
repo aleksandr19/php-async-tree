@@ -40,11 +40,15 @@ function clickDescription (ele) {
     $("a.description").each (
         function() {
             $(this).css ("font-weight", "normal");
+            $(this).removeClass ("node-selected");
         }
     );
 
     // make clicked node bold
     j_description.css ("font-weight", "bold");
+    j_description.addClass ("node-selected");
+    
+    // here you can put your custom code using str_node_id
 
 
 }
