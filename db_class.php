@@ -28,18 +28,16 @@ class dbClass {
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
     }
     
-    public function newNode ($parent_id, $description, $image_name) {
+    public function newNode ($parent_id, $description, $image_name, $url) {
 
         if (empty ($parent_id))
-            throw new Exception ("parent id is not provided");
+            $parent_id = $this -> getRootId();
         
         $str_sql = "select `level` from " . TABLE_NAME . " where `id` = ?";
         $level = $this -> getSingleValueWithParam ($str_sql, $parent_id);
-        
-        echo "level = " . $level . "<br>\n";
 
-        $query = "insert into " . TABLE_NAME . " (parent_id, `level`, `description`, image_name) " .
-            " values (?, ?, ?, ?)";
+        $query = "insert into " . TABLE_NAME . " (parent_id, `level`, `description`, image_name, `url`) " .
+            " values (?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare ($this -> conn, $query);
 
@@ -49,8 +47,8 @@ class dbClass {
         $level++;
         
         /* bind parameters for markers */
-        mysqli_stmt_bind_param ( $stmt, "iiss",
-            $parent_id, $level, $description, $image_name);
+        mysqli_stmt_bind_param ( $stmt, "iisss",
+            $parent_id, $level, $description, $image_name, $url);
 
         /* execute query */
         $success = mysqli_stmt_execute ($stmt);

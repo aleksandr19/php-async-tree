@@ -75,3 +75,44 @@ function setNodeHtml (s_node_id) {
         }
     });
 }
+
+// callback_function is an argument of asynchronious function reload_tree
+// after reload_tree succeeds, it calls callback_function, which
+// contains value set by reload_tree
+
+function callback_implementation (callback) {
+    callback();
+}
+
+function reload_tree (root_id, callback_function) {
+                    
+    // insert root
+    var str_html = "<img class='tree_img' src='images/computer.png' />&nbsp;root\n";
+    $("#tree_container").html (str_html);
+        
+    // add first level nodes
+
+    $.ajax ({ // ajax call starts
+        url: 'ajax_nodes_data.php',  // JQuery loads php file
+        type: "GET",
+        dataType: "text",
+        data: "nodeid=" + root_id,
+        success: function (data) { // Variable data contains the data we get from serverside
+
+            var s_html =
+                "<ul class='node' style='padding-top: 2px;'>\n" +  // open ul
+                data +                                             // tree nodes
+                "</ul>\n";                                         // close ul
+
+            callback_implementation (
+                function() {
+                    callback_function (s_html);
+                }
+            );
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

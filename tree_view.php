@@ -19,14 +19,14 @@
 <body>
 
 <div>
-    <a href="javascript: void(null);" onClick="showDlg();"
+    <a href="javascript: void(null);" onClick="addItem();"
     ><img src="images/add.gif" title="new"/></a>    
     &nbsp;
     <a href="#"><img src="images/edit.gif" title="change"/></a>
     &nbsp;
     <a href="#"><img src="images/delete.gif" title="delete"/></a>
     &nbsp;
-    <a href="javascript: void(null);" onClick="reload_tree (callback_function);"
+    <a href="javascript: void(null);" onClick="refresh_tree();"
     ><img src="images/refresh.png" title="refresh"/></a>
 </div>
 
@@ -36,20 +36,22 @@
 </div>
 
 <!-- dialog -->
-<div style="display: none;">
+<div style="display: block;">
   <div id="additem" style="border: solid #00aaaa 1px; background-color: #ccffff;">
-    <div class="div_table">
-      <div class="div_row">
-        <div class="div_cell_left">description:</div>
-        <div class="div_cell_right"><input id="txt_description" type="text" /></div>
-      </div><div class="div_row">
-        <div class="div_cell_left">image file name:</div>
-        <div class="div_cell_right"><input type="text" /></div>
-      </div><div class="div_row">
-        <div class="div_cell_left">url:</div>
-        <div class="div_cell_right"><input id="txt_url" type="text" /></div>
+    <form>
+      <div class="div_table">
+        <div class="div_row">
+          <div class="div_cell_left">description:</div>
+          <div class="div_cell_right"><input id="txt_description" type="text" /></div>
+        </div><div class="div_row">
+          <div class="div_cell_left">image file name:</div>
+          <div class="div_cell_right"><input id="txt_image_name" type="text" /></div>
+        </div><div class="div_row">
+          <div class="div_cell_left">link:</div>
+          <div class="div_cell_right"><input id="txt_url" type="text" /></div>
+        </div>
       </div>
-  </div>
+    </form>
 </div>
 
 </body>

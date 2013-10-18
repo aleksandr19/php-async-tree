@@ -47,8 +47,11 @@ class treeClass {
                 $image_name = "empty.gif";
                 
             $str_url = $level_data [$i]["url"];
+            $str_target = "";
             if (empty ($str_url))
                 $str_url = "javascript: void (null);";
+            else
+                $str_target = " target='_blank' ";
 
             // plus sign, image, text
             $str_html .=  "<a class='plus' id='p" . $id . "' " .
@@ -59,7 +62,7 @@ class treeClass {
                 "<img class='tree_img' src='" . $plus_image_name . "'/>" .
                 "</a>" .
                 "<img class='tree_img' src='custom_images/" . $image_name . "'/>" .
-                "<a href='" . $str_url . "' onClick='clickDescription (this);' " .
+                "<a href='" . $str_url . "' " . $str_target . " onClick='clickDescription (this);' " .
                 "class='description' id='d" . $id . "' >" .
                 $level_data [$i]["description"] .
                 "</a>\n";
