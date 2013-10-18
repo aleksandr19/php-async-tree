@@ -60,18 +60,16 @@
             data: "nodeid=" + s_node_id,
             success: function (data) { // Variable data contains the data we get from serverside
 
-                if (! jQuery.isEmptyObject (data)) {
-                    var s_html =
-                        "<ul class='node' style='padding-top: 2px;'>\n" +  // open ul
-                        data +                                             // tree nodes
-                        "</ul>\n";                                         // close ul
-                    
-                    callback_implementation (
-                        function() {
-                            callback_function (s_html);
-                        }
-                    );
-                }
+                var s_html =
+                    "<ul class='node' style='padding-top: 2px;'>\n" +  // open ul
+                    data +                                             // tree nodes
+                    "</ul>\n";                                         // close ul
+
+                callback_implementation (
+                    function() {
+                        callback_function (s_html);
+                    }
+                );
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);

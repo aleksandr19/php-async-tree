@@ -67,12 +67,7 @@ function setNodeHtml (s_node_id) {
         dataType: "text",
         data: "nodeid=" + s_node_id,
         success: function (data) {  // Variable data contains the data we get from serverside
-
-            if (! jQuery.isEmptyObject (data)) {
-                $("#n" + s_node_id).html (data);
-            }
-            else
-                $("#n" + s_node_id).html ("");
+            $("#n" + s_node_id).html (data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

@@ -16,3 +16,7 @@ a.description {
     text-decoration: none;
     color: blue;
 }
+
+a img {
+ border: none;
+}

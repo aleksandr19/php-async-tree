@@ -55,11 +55,11 @@ class treeClass {
                 "href='javascript: void(null)' " .
             
                 // clickPlus and  clickDescription functions are defined in script/tree.js
-                "onClick='javascript: clickPlus (this);' >" .
+                "onClick='clickPlus (this);' >" .
                 "<img class='tree_img' src='" . $plus_image_name . "'/>" .
                 "</a>" .
                 "<img class='tree_img' src='custom_images/" . $image_name . "'/>" .
-                "<a href='" . $str_url . "' onClick='javascript: clickDescription (this);' " .
+                "<a href='" . $str_url . "' onClick='clickDescription (this);' " .
                 "class='description' id='d" . $id . "' >" .
                 $level_data [$i]["description"] .
                 "</a>\n";
