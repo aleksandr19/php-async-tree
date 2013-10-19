@@ -28,6 +28,34 @@ class dbClass {
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
     }
     
+    public function changeNode ($selected_id, $description, $image_name, $url) {
+
+        if (empty ($selected_id))
+            throw new Exception ("id of updating node is missing");
+
+        $query = "update " . TABLE_NAME . " set `description` = ?, image_name = ?, `url` = ? " .
+            " where `id` = ?";
+
+        $stmt = mysqli_prepare ($this -> conn, $query);
+
+        if ($stmt === false)
+            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+
+        /* bind parameters for markers */
+        mysqli_stmt_bind_param ($stmt, "sssi",
+            $description, $image_name, $url, $selected_id);
+
+        /* execute query */
+        $success = mysqli_stmt_execute ($stmt);
+
+        /* close statement */
+        mysqli_stmt_close ($stmt);
+
+        if (! $success)
+            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+
+    }
+    
     public function newNode ($parent_id, $description, $image_name, $url) {
 
         if (empty ($parent_id))
@@ -47,7 +75,7 @@ class dbClass {
         $level++;
         
         /* bind parameters for markers */
-        mysqli_stmt_bind_param ( $stmt, "iisss",
+        mysqli_stmt_bind_param ($stmt, "iisss",
             $parent_id, $level, $description, $image_name, $url);
 
         /* execute query */

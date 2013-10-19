@@ -4,6 +4,8 @@ define ("EMPTYIMG", "images/empty.gif");
 define ("PLUS",     "images/plus.gif");
 define ("MINUS",    "images/minus.gif");
 
+define ("JS_VOID", "javascript: void(null);");
+
 ?>
 
 <script type="text/javascript">
@@ -49,19 +51,19 @@ class treeClass {
             $str_url = $level_data [$i]["url"];
             $str_target = "";
             if (empty ($str_url))
-                $str_url = "javascript: void (null);";
+                $str_url = JS_VOID;
             else
                 $str_target = " target='_blank' ";
 
             // plus sign, image, text
             $str_html .=  "<a class='plus' id='p" . $id . "' " .
-                "href='javascript: void(null)' " .
+                "href='" . JS_VOID . "' " .
             
                 // clickPlus and  clickDescription functions are defined in script/tree.js
                 "onClick='clickPlus (this);' >" .
                 "<img class='tree_img' src='" . $plus_image_name . "'/>" .
                 "</a>" .
-                "<img class='tree_img' src='custom_images/" . $image_name . "'/>" .
+                "<img class='tree_img' src='custom_images/" . $image_name . "'/>" . "&nbsp;" .
                 "<a href='" . $str_url . "' " . $str_target . " onClick='clickDescription (this);' " .
                 "class='description' id='d" . $id . "' >" .
                 $level_data [$i]["description"] .
