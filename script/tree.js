@@ -33,7 +33,7 @@ function clickDescription (ele) {
 
     // ele is description hyperlink
     
-    var str_node_id = ele.id.substr (1);  // "p2".substr (1) = "2"
+    var str_node_id = ele.id.substr (1);  // "d2".substr (1) = "2"
     var j_description = $(ele);
     
     // make all nodes normal
@@ -63,6 +63,7 @@ function setNodeHtml (s_node_id) {
 
     $.ajax ({ // ajax call starts
         url: './ajax_nodes_data.php',  // JQuery loads php file
+        cache: false,
         type: "GET",
         dataType: "text",
         data: "nodeid=" + s_node_id,
@@ -84,7 +85,7 @@ function callback_implementation (callback) {
     callback();
 }
 
-function reload_tree (root_id, callback_function) {
+function reload_tree (root_id, arr_root_to_leaf, callback_function) {
                     
     // insert root
     var str_html = "<img class='tree_img' src='images/computer.png' />&nbsp;root\n";
@@ -94,6 +95,7 @@ function reload_tree (root_id, callback_function) {
 
     $.ajax ({ // ajax call starts
         url: 'ajax_nodes_data.php',  // JQuery loads php file
+        cache: false,
         type: "GET",
         dataType: "text",
         data: "nodeid=" + root_id,
@@ -106,7 +108,7 @@ function reload_tree (root_id, callback_function) {
 
             callback_implementation (
                 function() {
-                    callback_function (s_html);
+                    callback_function (s_html, arr_root_to_leaf);
                 }
             );
         },

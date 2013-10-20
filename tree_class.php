@@ -45,12 +45,12 @@ class treeClass {
 
             // image
             $image_name = $level_data [$i]["image_name"];
-            if (empty ($image_name))
+            if ($image_name == "")
                 $image_name = "empty.gif";
                 
             $str_url = $level_data [$i]["url"];
             $str_target = "";
-            if (empty ($str_url))
+            if ($str_url == "")
                 $str_url = JS_VOID;
             else
                 $str_target = " target='_blank' ";

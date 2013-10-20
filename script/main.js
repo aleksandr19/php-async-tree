@@ -56,6 +56,31 @@ function clearFields() {
     $("#txt_url").val ("");    
 }
 
+function useServerData (key, id) {
+
+    $.ajax ({ // ajax call starts
+        url: "server_data.php",  // JQuery loads php file
+        cache: false,
+        type: "GET",
+        dataType: "text",
+        data: "key=" + key + "&id=" + id,
+        success: function (data) {
+
+            if (data) {
+                if (key == "leaf_to_root_path") {
+                    var arr = data.split (",");
+                    // $.each (arr, function (index, value) {alert (value)});
+                    refresh_tree (arr);
+                }
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function addItem() {
 
     // change title    
@@ -129,7 +154,7 @@ function updateData() {
     var str_data = "action=edit&selectedid=" + selected_id + "&description=" + $("#txt_description").val() +
         "&imagename=" + $("#combo_image_name").val() + "&url=" + $("#txt_url").val();
         
-    postData (str_data);
+    postData (str_data, selected_id);  // after reloading tree, go to leaf with id selected_id
 }
 
 function insertData() {
@@ -140,35 +165,39 @@ function insertData() {
     var str_data = "action=add&parentid=" + parent_id + "&description=" + $("#txt_description").val() +
         "&imagename=" + $("#combo_image_name").val() + "&url=" + $("#txt_url").val();
         
-    postData (str_data);
+    postData (str_data, null);
 }
 
 function deleteData (selected_id) {
 
     var str_data = "action=delete&selectedid=" + selected_id;
-    postData (str_data);
+    postData (str_data, null);
 }
     
-function postData (s_data) {
+function postData (s_data, sel_id) {
     
     $.ajax ({ // ajax call starts
         url: 'ajax_insert_delete.php',  // JQuery loads php file
+        cache: false,
         type: "POST",
         dataType: "text",
         data: s_data,
         success: function (data) {
-        
+
             // possible errors
             if (data)
                 alert (data);
 
-            refresh_tree();
+            if (sel_id) {  // after reloading tree, go to leaf with id sel_id
+
+                useServerData ("leaf_to_root_path", sel_id);
+            } else
+                refresh_tree();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
         }
     });
-
 
 }

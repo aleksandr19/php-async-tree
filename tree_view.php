@@ -70,7 +70,7 @@ to open a link, click on the text
       <div class="div_table">
         <div class="div_row">
           <div class="div_cell_left">description:</div>
-          <div class="div_cell_right"><input id="txt_description" type="text" /></div>
+          <div class="div_cell_right"><input id="txt_description" type="text" maxlength="255" /></div>
         </div><div class="div_row">
           <div class="div_cell_left">image file name:</div>
 
@@ -86,7 +86,7 @@ to open a link, click on the text
 
         </div><div class="div_row">
           <div class="div_cell_left">link:</div>
-          <div class="div_cell_right"><input id="txt_url" type="text" /></div>
+          <div class="div_cell_right"><input id="txt_url" type="text" maxlength="255" /></div>
         </div>
       </div>
     </form>

@@ -10,7 +10,7 @@
 
     $db_class = new dbClass ($connect);
     
-    if (! empty ($_GET ["nodeid"])) {
+    if (isset ($_GET ["nodeid"])) {
 
         try {
 

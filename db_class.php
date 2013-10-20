@@ -30,7 +30,7 @@ class dbClass {
     
     public function changeNode ($selected_id, $description, $image_name, $url) {
 
-        if (empty ($selected_id))
+        if (! isset ($selected_id))
             throw new Exception ("id of node being update is missing");
 
         $query = "update " . TABLE_NAME . " set `description` = ?, image_name = ?, `url` = ? " .
@@ -58,7 +58,7 @@ class dbClass {
     
     public function newNode ($parent_id, $description, $image_name, $url) {
 
-        if (empty ($parent_id))
+        if (! isset ($parent_id))
             $parent_id = $this -> getRootId();
         
         $str_sql = "select `level` from " . TABLE_NAME . " where `id` = ?";
@@ -96,9 +96,32 @@ class dbClass {
         return $this -> getSingleValueWithParam ($str_sql, $selected_id);
     }
 
+    private function getParentId ($id) {
+    
+        $str_sql = "select parent_id from " . TABLE_NAME . " where `id` = ?";
+        return $this -> getSingleValueWithParam ($str_sql, $id);    
+    }
+
+    public function getLeafToRootPath ($id) {
+
+        $arr = array();
+
+        // $id is passed by value, so we can modify it without affecting its value outside this function
+
+        // limit by 100 iterations to avoid infinite loop
+        for ($i=0; $i < 100; $i++) {
+            if (! isset ($id) || $id == -1)
+                break;
+
+            $arr[$i] = $id;
+            $id = $this -> getParentId ($id);
+        }
+        return $arr;
+    }
+
     public function deleteNode ($selected_id) {
 
-        if (empty ($selected_id))
+        if (! isset ($selected_id))
             throw new Exception ("id of node being delete is missing");
 
         $query = "delete from " . TABLE_NAME . " where `id` = ?";
