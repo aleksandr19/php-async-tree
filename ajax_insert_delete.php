@@ -31,6 +31,18 @@
                 echo $e -> getMessage();
             }
         }
+        else if ($_POST ["action"] == "delete") {
+
+            $selected_id = $_POST ["selectedid"];
+            
+            $child_count = $db_class -> getChildCount ($selected_id);
+            if ($child_count > 0)
+                echo "this item is not empty";
+            else
+
+            // delete node
+            $db_class -> deleteNode ($selected_id);
+        }
     }
 
     include "footer.php";

@@ -101,6 +101,19 @@ function editItem() {
     showDlg();
 }
 
+function deleteItem() {
+
+    var selected_id = getSelectedId();
+    if (! selected_id) {
+        alert ("please select an item");
+        return;
+    }
+
+    if (confirm ("delete '" + $("a.node-selected").html() + "'?"))
+        deleteData (selected_id);
+
+}
+
 function getSelectedId() {
     var selected_id = "";
     var selected_link = $("a.node-selected");
@@ -127,6 +140,12 @@ function insertData() {
     var str_data = "action=add&parentid=" + parent_id + "&description=" + $("#txt_description").val() +
         "&imagename=" + $("#combo_image_name").val() + "&url=" + $("#txt_url").val();
         
+    postData (str_data);
+}
+
+function deleteData (selected_id) {
+
+    var str_data = "action=delete&selectedid=" + selected_id;
     postData (str_data);
 }
     

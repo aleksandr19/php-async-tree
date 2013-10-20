@@ -37,19 +37,28 @@
 <body>
 
 <div>
+
+    <!-- addItem, editItem, deleteItem are defined in script/main.js -->
+    <!-- refresh_tree is defined in tree.php                         -->
+
     <a href="<?php echo JS_VOID ?>" onClick="addItem();"
     ><img src="images/add.gif" title="new"/></a>    
     &nbsp;
     <a href="<?php echo JS_VOID ?>" onClick="editItem();"
     ><img src="images/edit.gif" title="change"/></a>
     &nbsp;
-    <a href="#"><img src="images/delete.gif" title="delete"/></a>
+    <a href="<?php echo JS_VOID ?>" onClick="deleteItem();"
+    ><img src="images/delete.gif" title="delete"/></a>
     &nbsp;
     <a href="<?php echo JS_VOID ?>" onClick="refresh_tree();"
     ><img src="images/refresh.png" title="refresh"/></a>
 </div>
 
-<br />
+<div style="margin: 5px;">
+to select an item, click on its icon
+<br/>
+to open a link, click on the text
+</div>
 
 <div id="tree_container">
 </div>

@@ -31,7 +31,7 @@ class dbClass {
     public function changeNode ($selected_id, $description, $image_name, $url) {
 
         if (empty ($selected_id))
-            throw new Exception ("id of updating node is missing");
+            throw new Exception ("id of node being update is missing");
 
         $query = "update " . TABLE_NAME . " set `description` = ?, image_name = ?, `url` = ? " .
             " where `id` = ?";
@@ -86,6 +86,40 @@ class dbClass {
     
         if (! $success)
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+    }
+    
+    public function getChildCount ($selected_id) {
+
+        $str_sql = "select count(`id`) from " . TABLE_NAME .
+            " where parent_id = ?";
+
+        return $this -> getSingleValueWithParam ($str_sql, $selected_id);
+    }
+
+    public function deleteNode ($selected_id) {
+
+        if (empty ($selected_id))
+            throw new Exception ("id of node being delete is missing");
+
+        $query = "delete from " . TABLE_NAME . " where `id` = ?";
+
+        $stmt = mysqli_prepare ($this -> conn, $query);
+
+        if ($stmt === false)
+            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+
+        /* bind parameters for markers */
+        mysqli_stmt_bind_param ($stmt, "i", $selected_id);
+
+        /* execute query */
+        $success = mysqli_stmt_execute ($stmt);
+
+        /* close statement */
+        mysqli_stmt_close ($stmt);
+
+        if (! $success)
+            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+
     }
     
     // returns multidimensional array of the node of the first level
