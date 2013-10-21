@@ -1,12 +1,23 @@
-$(function() {
+$(function() {    
     a_dialog = $("#additem").dialog ({
         autoOpen: false,
         title: "Node Editor",
         modal: true,
-        width: 300,
+        width:  315,
         height: 150,
         open:
             function (e) {
+            
+                // set width
+                if ($("#combo_image_name").attr("id")) {
+                    var combo_width =  $("#combo_image_name").width();
+                    if (combo_width > 150) {
+                        a_dialog.width (combo_width + 165);
+                        $("#txt_description").width (combo_width);
+                        $("#txt_url").width (combo_width);
+                    }
+                }
+
                 $("#txt_description").focus();
                 // $("#txt_description").select();
 

@@ -14,8 +14,9 @@ function clickPlus (ele) {
     
     // if node is expanded, collapse it
     if (j_kids_ul.css ("display").toLowerCase() == "block" && j_kids_ul.html() != "") {
-        j_kids_ul.css ("display", "none");        
-        j_img.attr ("src", PLUS);
+        j_kids_ul.css ("display", "none");
+        if (j_img.attr ("src") == MINUS)
+            j_img.attr ("src", PLUS);
         return;
     }
     
@@ -26,7 +27,8 @@ function clickPlus (ele) {
     if (j_kids_ul.html() == "")
         setNodeHtml (str_node_id, null);
  
-    j_img.attr ("src", MINUS);
+    if (j_img.attr ("src") == PLUS)
+        j_img.attr ("src", MINUS);
 }
 
 // does same as clickPlus, but while clickPlus fires by user click, autoExpand
@@ -57,13 +59,8 @@ function autoExpand (ele, callback_function) {
     );
 }
 
-function clickDescription (ele) {
+function unselect_all() {
 
-    // ele is description hyperlink
-    
-    var str_node_id = ele.id.substr (1);  // "d2".substr (1) = "2"
-    var j_description = $(ele);
-    
     // make all nodes normal
     $("a.description").each (
         function() {
@@ -71,11 +68,42 @@ function clickDescription (ele) {
             $(this).removeClass ("node-selected");
         }
     );
+}
 
-    // make clicked node bold
-    j_description.css ("font-weight", "bold");
-    j_description.addClass ("node-selected");
+function select_description (ele) {
+    ele.css ("font-weight", "bold");
+    ele.addClass ("node-selected");      
+}
+
+// select item without opening link
+function clickIcon (ele) {
+
+   // ele is icon
+   j_icon = $(ele);  // jQuery variable of icon
+   j_li = j_icon.parent ("li").attr("id");
+   if (j_li) {
+       var str_node_id = j_li.substr (1);  // "l2".substr (1) = "2"
+       var j_description = $("#d" + str_node_id);
+
+        unselect_all();
+        
+        // make description bold and add class node-selected
+        select_description (j_description);
+   }
+}
+
+function clickDescription (ele) {
+
+    // ele is description hyperlink
     
+    var str_node_id = ele.id.substr (1);  // "d2".substr (1) = "2"
+    var j_description = $(ele);
+    
+    unselect_all();
+
+    // make description bold and add class node-selected
+    select_description (j_description);
+
     // here you can put your custom code using str_node_id
 
 

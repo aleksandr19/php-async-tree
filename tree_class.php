@@ -4,7 +4,12 @@ define ("EMPTYIMG", "images/empty.gif");
 define ("PLUS",     "images/plus.gif");
 define ("MINUS",    "images/minus.gif");
 
-define ("JS_VOID", "javascript: void(null);");
+// the reason why EMPTYIMG and other images are defined here, and JS_VOID is defined in constants.php, is:
+// the image constants are only used in this file and script/tree.js (script/tree.js has access to content
+// of this file through ajax_nodes_data.php), while JS_VOID is used in both tree_class.php and tree_view.php,
+// which do not share content
+
+include "constants.php";  // define JS_VOID and CUSTOM_IMAGES
 
 ?>
 
@@ -59,14 +64,16 @@ class treeClass {
             $str_html .=  "<a class='plus' id='p" . $id . "' " .
                 "href='" . JS_VOID . "' " .
             
-                // clickPlus and  clickDescription functions are defined in script/tree.js
-                "onClick='clickPlus (this);' >" .
-                "<img class='tree_img' src='" . $plus_image_name . "'/>" .
+                    // clickPlus and  clickDescription functions are defined in script/tree.js
+                    "onClick='clickPlus (this);' >" .
+                    "<img class='tree_img' src='" . $plus_image_name . "' />" .
                 "</a>" .
-                "<img class='tree_img' src='custom_images/" . $image_name . "'/>" . "&nbsp;" .
+                "<img class='tree_img' src='" . CUSTOM_IMAGES . "/" . $image_name . "' " .
+                    "onClick='clickIcon (this);' " .
+                "/>" . "&nbsp;" .
                 "<a href='" . $str_url . "' " . $str_target . " onClick='clickDescription (this);' " .
-                "class='description' id='d" . $id . "' >" .
-                $level_data [$i]["description"] .
+                    "class='description' id='d" . $id . "' >" .
+                    $level_data [$i]["description"] .
                 "</a>\n";
                 
             $str_html .=  "<ul class='node' style='display: none;' id='n" . $id . "'></ul>\n";

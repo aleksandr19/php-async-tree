@@ -11,7 +11,7 @@
 <script src="script/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="script/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 
-<?php define ("JS_VOID", "javascript: void(null);"); ?>
+<?php include "constants.php";  // define JS_VOID and CUSTOM_IMAGES ?>
 
 <script type="text/javascript">
 
@@ -28,8 +28,15 @@
 <?php
 
     // image files list
-    $arr_image_files = array ("computer_1_16.png", "computer_2_16.png", "computer_3_16.png", "computer_4_16.png",
-        "computer_1_32.png", "computer_2_32.png", "computer_3_32.png", "computer_4_32.png");
+    $arr_image_files = scandir (CUSTOM_IMAGES, 1);
+    
+    // filter out . and ..
+    $arr_image_files = array_filter (
+        $arr_image_files,
+        function ($var) {
+            return ($var !== "." && $var !== "..");
+        }
+    );
 
 ?>
 
