@@ -87,7 +87,13 @@ class dbClass {
         if (! $success)
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
     }
+
+    public function getLastRecordId() {
     
+        $str_sql = "select max(`id`) from " . TABLE_NAME;
+        return $this -> getSingleValue ($str_sql);
+    }
+
     public function getChildCount ($selected_id) {
 
         $str_sql = "select count(`id`) from " . TABLE_NAME .

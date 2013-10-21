@@ -20,14 +20,14 @@
                     // comma separated ids from the root to the node
                     $arr = array_reverse ($arr);
                     array_shift ($arr);    // remove root id
-                    echo implode (",", $arr);
-                    break;
+                    echo implode (",", $arr);                    
                 }
-            case "b":
-                echo "b";
+                break;
+            case "last_record_id":
+                echo $db_class -> getLastRecordId();
                 break;
             default:
-                echo "default";
+
                 break;
         }
     }

@@ -72,6 +72,13 @@ function useServerData (key, id) {
                     // $.each (arr, function (index, value) {alert (value)});
                     refresh_tree (arr);
                 }
+                else if (key == "last_record_id") {
+                    var last_record_id = data;
+                    useServerData ("leaf_to_root_path", last_record_id);
+                }
+                else {
+                    refresh_tree ([last_record_id]);
+                }
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -154,7 +161,7 @@ function updateData() {
     var str_data = "action=edit&selectedid=" + selected_id + "&description=" + $("#txt_description").val() +
         "&imagename=" + $("#combo_image_name").val() + "&url=" + $("#txt_url").val();
         
-    postData (str_data, selected_id);  // after reloading tree, go to leaf with id selected_id
+    postData (str_data, "edit", selected_id);  // after reloading tree, go to leaf with id selected_id
 }
 
 function insertData() {
@@ -165,16 +172,16 @@ function insertData() {
     var str_data = "action=add&parentid=" + parent_id + "&description=" + $("#txt_description").val() +
         "&imagename=" + $("#combo_image_name").val() + "&url=" + $("#txt_url").val();
         
-    postData (str_data, null);
+    postData (str_data, "add", null);
 }
 
 function deleteData (selected_id) {
 
     var str_data = "action=delete&selectedid=" + selected_id;
-    postData (str_data, null);
+    postData (str_data, "delete", null);
 }
     
-function postData (s_data, sel_id) {
+function postData (s_data, s_action, sel_id) {
     
     $.ajax ({ // ajax call starts
         url: 'ajax_insert_delete.php',  // JQuery loads php file
@@ -188,10 +195,14 @@ function postData (s_data, sel_id) {
             if (data)
                 alert (data);
 
-            if (sel_id) {  // after reloading tree, go to leaf with id sel_id
+            if (s_action == "edit" && sel_id) {  // after reloading tree, go to leaf with id sel_id
 
                 useServerData ("leaf_to_root_path", sel_id);
-            } else
+            } else if (s_action == "add") {
+
+                useServerData ("last_record_id");
+            }
+            else
                 refresh_tree();
         },
         error: function (xhr, ajaxOptions, thrownError) {
