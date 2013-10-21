@@ -24,9 +24,37 @@ function clickPlus (ele) {
 
     // populate node from database
     if (j_kids_ul.html() == "")
-        setNodeHtml (str_node_id);
+        setNodeHtml (str_node_id, null);
  
     j_img.attr ("src", MINUS);
+}
+
+// does same as clickPlus, but while clickPlus fires by user click, autoExpand
+// is called from another function
+
+function autoExpand (ele, callback_function) {
+
+    // ele is a plus sign
+
+    var str_node_id = ele.id.substr (1);                   // "p2".substr (1) = "2"
+    var j_plus_sign = $(ele);                              // jQuery variable of plus sign
+    var j_kids_ul   = $("ul#n" + str_node_id);             // jQuery variable of ul containing children nodes
+    var j_img       = j_plus_sign.children('img').eq(0);   // jQuery variable of plus sign image
+
+    j_img.attr ("src", MINUS);
+
+    // expand node
+    if (j_kids_ul.attr("id"))
+        j_kids_ul.css ("display", "block");    
+
+    // populate node from database
+    setNodeHtml (str_node_id, callback_function);
+
+    callback_implementation (
+        function() {
+            callback_function();
+        }
+    );
 }
 
 function clickDescription (ele) {
@@ -53,7 +81,11 @@ function clickDescription (ele) {
 
 }
 
-function setNodeHtml (s_node_id) {
+function callback_implementation (callback) {
+    callback();
+}
+
+function setNodeHtml (s_node_id, callback_function) {
 
 // data
 // [
@@ -69,6 +101,12 @@ function setNodeHtml (s_node_id) {
         data: "nodeid=" + s_node_id,
         success: function (data) {  // Variable data contains the data we get from serverside
             $("#n" + s_node_id).html (data);
+
+            callback_implementation (
+                function() {
+                    callback_function();
+                }
+            );
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -80,10 +118,6 @@ function setNodeHtml (s_node_id) {
 // callback_function is an argument of asynchronious function reload_tree
 // after reload_tree succeeds, it calls callback_function, which
 // contains value set by reload_tree
-
-function callback_implementation (callback) {
-    callback();
-}
 
 function reload_tree (root_id, arr_root_to_leaf, callback_function) {
                     

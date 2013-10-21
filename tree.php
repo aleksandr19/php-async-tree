@@ -54,21 +54,31 @@
                     }, 100
                 );
             }
-
+            
             var i = 0;
+            
+            // define callback function, which will be an argument of autoExpand function
+            function callback_after_expand() {
 
-            var interval = setInterval (
-                function() {
-                    if (i > arr_root_to_leaf.length - 2 || i > 100) {
-                        clearInterval (interval);
-                        selectLastLeaf();
-                        return;
-                    }
-                    clickPlus (document.getElementById ("p" + arr_root_to_leaf [i]));
-                    i++;
-                }, 100
-            );
+                if (i > arr_root_to_leaf.length - 2) {
+                    selectLastLeaf();
+                    return;
+                }
+                
+                setTimeout (
+                    function() {
 
+                        var ele = document.getElementById ("p" + arr_root_to_leaf [i]);
+
+                        i++;
+
+                        // recurse
+                        autoExpand (ele, callback_after_expand);
+                    }, 100
+                );
+            }
+
+            callback_after_expand();
         }
 
         /* put here things that need to be run after tree loads */
