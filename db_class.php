@@ -170,17 +170,34 @@ class dbClass {
         mysqli_stmt_execute($stmt);
 
         /* bind result variables */
-        $result = mysqli_stmt_get_result ($stmt);
+        
+        // $result = mysqli_stmt_get_result ($stmt);
 
         // $result = mysqli_query ($this -> conn, $str_sql);
+        
+        $result = mysqli_stmt_bind_result ($stmt, $id, $parent_id, $level, $description, $image_name, $url, $cnt);
 
         if ($result === false)
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
             
         $arr = array();
+            
+        while (mysqli_stmt_fetch ($stmt)) {
+            array_push ($arr,
+                array (
+                    "id"          => $id,
+                    "parent_id"   => $parent_id,
+                    "level"       => $level,
+                    "description" => $description,
+                    "image_name"  => $image_name,
+                    "url"         => $url,
+                    "cnt"         => $cnt
+                )
+            );
+        }
 
-        while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC))
-        {
+        // while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC))
+        // {
 
             /*
             printf ("id=%d parent_id=%d level=%d desc=%s img_name=%s cnt=%d\n<br />",
@@ -192,21 +209,24 @@ class dbClass {
                 $row["cnt"]);
             */
         
-            array_push ($arr,
-                array (
-                    "id"          => $row["id"],
-                    "parent_id"   => $row["parent_id"],
-                    "level"       => $row["level"],
-                    "description" => $row["description"],
-                    "image_name"  => $row["image_name"],
-                    "url"         => $row["url"],
-                    "cnt"         => $row["cnt"]
-                )
-            );
-        }
+            // array_push ($arr,
+            //     array (
+            //         "id"          => $row["id"],
+            //         "parent_id"   => $row["parent_id"],
+            //         "level"       => $row["level"],
+            //         "description" => $row["description"],
+            //         "image_name"  => $row["image_name"],
+            //         "url"         => $row["url"],
+            //         "cnt"         => $row["cnt"]
+            //     )
+            // );
+        // }
+        
+        /* close statement */
+        mysqli_stmt_close ($stmt);
 
         /* free result set */
-        mysqli_free_result($result);
+        // mysqli_free_result ($result);
         
         return $arr;    
     }

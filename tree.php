@@ -51,7 +51,7 @@
                         var ele = document.getElementById (str_description);
                         if (ele)
                             clickDescription (ele);
-                    }, 100
+                    }, 10
                 );
             }
             
@@ -74,7 +74,7 @@
 
                         // recurse
                         autoExpand (ele, callback_after_expand);
-                    }, 100
+                    }, 10
                 );
             }
 

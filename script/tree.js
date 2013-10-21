@@ -22,13 +22,19 @@ function clickPlus (ele) {
     
     // else expand node
     j_kids_ul.css ("display", "block");
+    
+    function dummy_callback() {}
 
     // populate node from database
     if (j_kids_ul.html() == "")
-        setNodeHtml (str_node_id, null);
+        setNodeHtml (str_node_id, dummy_callback);
  
     if (j_img.attr ("src") == PLUS)
         j_img.attr ("src", MINUS);
+}
+
+function callback_implementation (callback) {
+    callback();
 }
 
 // does same as clickPlus, but while clickPlus fires by user click, autoExpand
@@ -47,16 +53,19 @@ function autoExpand (ele, callback_function) {
 
     // expand node
     if (j_kids_ul.attr("id"))
-        j_kids_ul.css ("display", "block");    
+        j_kids_ul.css ("display", "block");
 
-    // populate node from database
-    setNodeHtml (str_node_id, callback_function);
+    function set_node_html_callback() {
 
-    callback_implementation (
-        function() {
-            callback_function();
-        }
-    );
+        callback_implementation (
+            function() {
+                callback_function();
+            }
+        );
+    }
+
+    // populate node from database and call the function above
+    setNodeHtml (str_node_id, set_node_html_callback);
 }
 
 function unselect_all() {
@@ -109,11 +118,7 @@ function clickDescription (ele) {
 
 }
 
-function callback_implementation (callback) {
-    callback();
-}
-
-function setNodeHtml (s_node_id, callback_function) {
+function setNodeHtml (s_node_id, callback_received_data) {
 
 // data
 // [
@@ -132,7 +137,7 @@ function setNodeHtml (s_node_id, callback_function) {
 
             callback_implementation (
                 function() {
-                    callback_function();
+                    callback_received_data();
                 }
             );
         },

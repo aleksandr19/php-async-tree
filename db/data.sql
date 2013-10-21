@@ -1,5 +1,5 @@
 create table tree
-    (id integer not null AUTO_INCREMENT,
+    (id integer not null auto_increment,
     parent_id integer not null,
     `level` integer,
     `description` varchar(50),
