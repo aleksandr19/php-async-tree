@@ -92,8 +92,10 @@ function addItem() {
 
     // change title    
     a_dialog.dialog ("option", "title", "Add Item");
-    
+
+    // attr will be used in dialog close event
     a_dialog.attr ("action", "add");
+
     clearFields();
     showDlg();
 }
@@ -147,7 +149,7 @@ function deleteItem() {
 }
 
 function getSelectedId() {
-    var selected_id = "";
+    var selected_id = null;
     var selected_link = $("a.node-selected");
     if (selected_link && selected_link.attr("id"))
         selected_id = selected_link.attr("id").substr(1);
@@ -168,6 +170,8 @@ function insertData() {
 
     // if a node is selected, add new node to it, otherwise, add to root
     var parent_id = getSelectedId();
+    if (parent_id == null)
+        parent_id = "";
 
     var str_data = "action=add&parentid=" + parent_id + "&description=" + $("#txt_description").val() +
         "&imagename=" + $("#combo_image_name").val() + "&url=" + $("#txt_url").val();
@@ -177,12 +181,20 @@ function insertData() {
 
 function deleteData (selected_id) {
 
+    parent_id = null;
+
+    var j_li = $("li#l" + selected_id);
+    if (j_li.attr("id")) {
+        j_ul = j_li.parent ("ul");
+        parent_id = j_ul.attr("id").substr(1);
+    }
+
     var str_data = "action=delete&selectedid=" + selected_id;
-    postData (str_data, "delete", null);
+    postData (str_data, "delete", parent_id);
 }
     
-function postData (s_data, s_action, sel_id) {
-    
+function postData (s_data, s_action, id) {
+
     $.ajax ({ // ajax call starts
         url: 'ajax_insert_delete.php',  // JQuery loads php file
         cache: false,
@@ -195,14 +207,23 @@ function postData (s_data, s_action, sel_id) {
             if (data)
                 alert (data);
 
-            if (s_action == "edit" && sel_id) {  // after reloading tree, go to leaf with id sel_id
+            if (s_action == "edit" && id) {
+            
+                var selected_id = id;
 
-                useServerData ("leaf_to_root_path", sel_id);
+                // after reloading tree, go to leaf with id selected_id
+                useServerData ("leaf_to_root_path", selected_id);
             } else if (s_action == "add") {
 
                 useServerData ("last_record_id");
-            }
-            else
+            } else if (s_action == "delete" && id) {
+
+                var parent_id = id;
+
+                // after reloading tree, go to leaf with id parent_id
+                useServerData ("leaf_to_root_path", parent_id);
+            }else
+
                 refresh_tree();
         },
         error: function (xhr, ajaxOptions, thrownError) {

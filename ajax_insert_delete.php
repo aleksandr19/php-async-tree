@@ -15,7 +15,7 @@
             try {
 
                 if ($_POST ["action"] == "add") {
-                    $parent_id   = $_POST ["parentid"];
+                    $parent_id  = $_POST ["parentid"];
 
                     // insert new node
                     $db_class -> newNode ($parent_id, $description, $image_name, $url);

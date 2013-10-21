@@ -55,10 +55,10 @@ class dbClass {
             throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
 
     }
-    
+
     public function newNode ($parent_id, $description, $image_name, $url) {
 
-        if (! isset ($parent_id))
+        if (! isset ($parent_id) || $parent_id == "")
             $parent_id = $this -> getRootId();
         
         $str_sql = "select `level` from " . TABLE_NAME . " where `id` = ?";

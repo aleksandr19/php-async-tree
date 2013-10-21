@@ -26,6 +26,7 @@
             case "last_record_id":
                 echo $db_class -> getLastRecordId();
                 break;
+
             default:
 
                 break;
