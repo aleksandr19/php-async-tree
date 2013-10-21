@@ -145,7 +145,6 @@ function deleteItem() {
 
     if (confirm ("delete '" + $("a.node-selected").html() + "'?"))
         deleteData (selected_id);
-
 }
 
 function getSelectedId() {
@@ -181,12 +180,13 @@ function insertData() {
 
 function deleteData (selected_id) {
 
-    parent_id = null;
-
+    var parent_id = "";
+    
     var j_li = $("li#l" + selected_id);
     if (j_li.attr("id")) {
         j_ul = j_li.parent ("ul");
-        parent_id = j_ul.attr("id").substr(1);
+        if (j_ul.attr("id"))
+            parent_id = j_ul.attr("id").substr(1);
     }
 
     var str_data = "action=delete&selectedid=" + selected_id;
@@ -204,11 +204,13 @@ function postData (s_data, s_action, id) {
         success: function (data) {
 
             // possible errors
-            if (data)
+            if (data) {
                 alert (data);
+                return;
+            }
 
             if (s_action == "edit" && id) {
-            
+
                 var selected_id = id;
 
                 // after reloading tree, go to leaf with id selected_id
