@@ -40,6 +40,12 @@ $(function() {
                 {
                     text: "OK",
                     click: function() {
+                        if ($("#txt_description").val().trim() == "") {
+                            alert ("description can not be empty");
+                            $("#txt_description").focus();
+                            return;
+                        }
+
                         a_dialog.dialog ("close");
                         if (a_dialog.attr ("action") == "add")
                             insertData();
