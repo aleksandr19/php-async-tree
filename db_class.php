@@ -1,5 +1,7 @@
 <?php
 
+define ("TABLE_NAME", "tree");    
+
 class dbClass {
 
     private $conn = null;

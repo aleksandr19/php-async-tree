@@ -43,7 +43,13 @@
 </head>
 <body>
 
-<div>
+<div style="margin-bottom: 12px;">
+    to select an item, click on its icon
+    <br/>
+    to open a link, click on the text
+</div>
+
+<div style="margin-bottom: 5px;">
 
     <!-- addItem, editItem, deleteItem are defined in script/main.js -->
     <!-- refresh_tree is defined in tree.php                         -->
@@ -59,12 +65,6 @@
     &nbsp;
     <a href="<?php echo JS_VOID ?>" onClick="refresh_tree();"
     ><img src="images/refresh.png" title="refresh"/></a>
-</div>
-
-<div style="margin: 5px;">
-to select an item, click on its icon
-<br/>
-to open a link, click on the text
 </div>
 
 <div id="tree_container">
