@@ -85,3 +85,7 @@ Refresh button (looks like a curved arrow) reloads the tree.
 
 ####Contact me:####
 Please email me at aleksandr19@yahoo.com if you have any questions or comments
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aleksandr19/php-async-tree/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
