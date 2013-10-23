@@ -1,8 +1,6 @@
 php-async-tree
 =============
 
-#####PHP tree with asynchronously loading data#####
-
 ####Features:####
 1. use of AJAX: page is not reloaded when user explores the tree or makes changes to it.
 
