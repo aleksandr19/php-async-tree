@@ -41,7 +41,7 @@ $(function() {
                     text: "OK",
                     click: function() {
                         if ($("#txt_description").val().trim() == "") {
-                            alert ("description can not be empty");
+                            alert ("description cannot be empty");
                             $("#txt_description").focus();
                             return;
                         }
