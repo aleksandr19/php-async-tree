@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * a class to retrieve information from database or make changes to it
+ *
+ *  this work is licensed under the The MIT License (MIT)
+ *  name      PHP Async Tree
+ *  web site  https://github.com/aleksandr19/php-async-tree
+ *  author    aleksandr19 <aleksandr19@yahoo.com>
+ *  copyright (c) 2013 aleksandr19
+ */
+
 define ("TABLE_NAME", "tree");    
 
 class dbClass {
@@ -267,21 +277,5 @@ class dbClass {
         return $result;
     }
 }
-
-function sample ($conn) {
-
-    $query = "insert into " . TABLE_NAME . " (`id`, parent_id) values (?, ?)";
-    $stmt = mysqli_prepare ($conn, $query) or die (mysqli_error ($conn));
-
-    /* bind parameters for markers */
-    mysqli_stmt_bind_param ( $stmt, "ii", $max_id, $description, $deposit);
-
-    /* execute query */
-    mysqli_stmt_execute ($stmt);
-
-    /* close statement */
-    mysqli_stmt_close( $stmt);
-}
-
 
 ?>

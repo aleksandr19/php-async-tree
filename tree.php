@@ -1,5 +1,22 @@
 <?php
 
+/*
+ *  the purpose of this file is:
+ * - to insert first record into database if it is empty (insertRoot function)
+ * - to reload the tree, and to expand it until it reaches a specific node (so after user
+ *       updates a node, and the tree is reloaded, the node is visible again)
+     this is done by refresh_tree (arr_root_to_leaf) function, where arr_root_to_leaf
+         is an array of node ids
+ *   notice that on document ready event (at the bottom of this page), this array is
+ *   null: refresh_tree (null);
+ *
+ *  this work is licensed under the The MIT License (MIT)
+ *  name      PHP Async Tree
+ *  web site  https://github.com/aleksandr19/php-async-tree
+ *  author    aleksandr19 <aleksandr19@yahoo.com>
+ *  copyright (c) 2013 aleksandr19
+ */
+
     include "header.php";
     include "db_class.php";
 
@@ -91,7 +108,7 @@
 
         // call reload_tree, which calls callback_function
         // reload_tree is defined in tree.js
-        reload_tree (root_id, arr_root_to_leaf, callback_function);    
+        reload_tree (root_id, arr_root_to_leaf, callback_function);
     }
 
     $(document).ready (function() {
