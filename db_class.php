@@ -10,7 +10,7 @@
  *  copyright (c) 2013 aleksandr19
  */
 
-define ("TABLE_NAME", "tree");    
+define ("TABLE_NAME", "tree");
 
 class dbClass {
 
@@ -32,12 +32,16 @@ class dbClass {
 
         /* execute query */
         $success = mysqli_stmt_execute ($stmt);
-    
+
+        $str_error = "";
+        if (! $success)
+            $str_error = htmlspecialchars (mysqli_error ($this -> conn));
+
         /* close statement */
         mysqli_stmt_close ($stmt);
-    
+
         if (! $success)
-            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+            throw new Exception ($str_error);
     }
     
     public function changeNode ($selected_id, $description, $image_name, $url) {
@@ -60,11 +64,15 @@ class dbClass {
         /* execute query */
         $success = mysqli_stmt_execute ($stmt);
 
+        $str_error = "";
+        if (! $success)
+            $str_error = htmlspecialchars (mysqli_error ($this -> conn));
+
         /* close statement */
         mysqli_stmt_close ($stmt);
 
         if (! $success)
-            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+            throw new Exception ($str_error);
 
     }
 
@@ -92,12 +100,16 @@ class dbClass {
 
         /* execute query */
         $success = mysqli_stmt_execute ($stmt);
-    
+
+        $str_error = "";
+        if (! $success)
+            $str_error = htmlspecialchars (mysqli_error ($this -> conn));
+
         /* close statement */
         mysqli_stmt_close ($stmt);
     
         if (! $success)
-            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+            throw new Exception ($str_error);
     }
 
     public function getLastRecordId() {
@@ -154,12 +166,16 @@ class dbClass {
 
         /* execute query */
         $success = mysqli_stmt_execute ($stmt);
+        
+        $str_error = "";
+        if (! $success)
+            $str_error = htmlspecialchars (mysqli_error ($this -> conn));
 
         /* close statement */
         mysqli_stmt_close ($stmt);
 
         if (! $success)
-            throw new Exception (htmlspecialchars (mysqli_error ($this -> conn)));
+            throw new Exception ($str_error);
 
     }
     
