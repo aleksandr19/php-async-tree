@@ -84,7 +84,7 @@ function useServerData (key, id) {
         success: function (data) {
 
             if (data) {
-                if (key == "leaf_to_root_path") {
+                if (key == "leaf_to_root_path") {                
                     var arr = data.split (",");
                     // $.each (arr, function (index, value) {alert (value)});
                     refresh_tree (arr);
@@ -197,19 +197,29 @@ function insertData() {
 
 function deleteData (selected_id) {
 
-    var parent_id = "";
-    
+    var node_id_to_select = "";
+
+    // select which node to highlight after delete
     var j_li = $("li#l" + selected_id);
     if (j_li.attr("id")) {
-        j_ul = j_li.parent ("ul");
-        if (j_ul.attr("id"))
-            parent_id = j_ul.attr("id").substr(1);
+        if (j_li.prev().attr("id"))
+            node_id_to_select = j_li.prev().attr("id").substr(1);
+        else if (j_li.next().attr("id"))
+            node_id_to_select = j_li.next().attr("id").substr(1);
+        else {
+            var j_ul = j_li.parent ("ul");
+            if (j_ul.attr("id")) {
+
+                // parent
+                node_id_to_select = j_ul.attr("id").substr(1);
+            }
+        }
     }
 
     var str_data = "action=delete&selectedid=" + selected_id;
-    postData (str_data, "delete", parent_id);
+    postData (str_data, "delete", node_id_to_select);
 }
-    
+
 function postData (s_data, s_action, id) {
 
     $.ajax ({ // ajax call starts
@@ -237,10 +247,8 @@ function postData (s_data, s_action, id) {
                 useServerData ("last_record_id");
             } else if (s_action == "delete" && id) {
 
-                var parent_id = id;
-
                 // after reloading tree, go to leaf with id parent_id
-                useServerData ("leaf_to_root_path", parent_id);
+                useServerData ("leaf_to_root_path", id);
             }else
 
                 refresh_tree();

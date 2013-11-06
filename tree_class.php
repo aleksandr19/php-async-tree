@@ -27,7 +27,7 @@ include "constants.php";  // define JS_VOID and CUSTOM_IMAGES
 
 class treeClass {
 
-    // returns html, each line contains plus sing, image, and text
+    // returns html, each line contains plus sign, image, and text
     public function htmlFromArray ($level_data) {
     
         $str_html = "";
@@ -42,7 +42,7 @@ class treeClass {
             $str_html .= "<li id='l" . $id . "' lastnode='" . (($is_last_node) ? "true" : "false") .
                 "' >\n";
 
-            // image of plus sing
+            // image of plus sign
             if ($level_data [$i]["cnt"] > 0)
                 $plus_image_name = PLUS;
             else
