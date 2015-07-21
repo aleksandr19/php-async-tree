@@ -84,6 +84,7 @@ function useServerData (key, id) {
         success: function (data) {
 
             if (data) {
+                data = data.replace(/(\r\n|\n|\r)/gm,"");
                 if (key == "leaf_to_root_path") {                
                     var arr = data.split (",");
                     // $.each (arr, function (index, value) {alert (value)});
@@ -126,7 +127,6 @@ function editItem() {
     clearFields();
     
     // set fields
-
     var selected_id = getSelectedId();
     if (! selected_id) {
         alert ("please select an item");
@@ -229,6 +229,7 @@ function postData (s_data, s_action, id) {
         dataType: "text",
         data: s_data,
         success: function (data) {
+            data = data.replace(/(\r\n|\n|\r)/gm,"");
 
             // possible errors
             if (data) {
@@ -237,7 +238,6 @@ function postData (s_data, s_action, id) {
             }
 
             if (s_action == "edit" && id) {
-
                 var selected_id = id;
 
                 // after reloading tree, go to leaf with id selected_id
@@ -249,8 +249,7 @@ function postData (s_data, s_action, id) {
 
                 // after reloading tree, go to leaf with id parent_id
                 useServerData ("leaf_to_root_path", id);
-            }else
-
+            } else
                 refresh_tree();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -258,5 +257,4 @@ function postData (s_data, s_action, id) {
             alert(thrownError);
         }
     });
-
 }

@@ -31,11 +31,13 @@
     $arr_image_files = scandir (CUSTOM_IMAGES, 1);
     
     // filter out . and ..
+
+    function remove_dots ($var) {
+        return ($var !== "." && $var !== "..");
+    }
+
     $arr_image_files = array_filter (
-        $arr_image_files,
-        function ($var) {
-            return ($var !== "." && $var !== "..");
-        }
+        $arr_image_files, "remove_dots"
     );
 
 ?>
