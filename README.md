@@ -22,7 +22,7 @@ Also, your browser should support jQuery, so it should be relatively new.  This 
 
 * Download the source code:
 
-download zip file: click on #####Download ZIP##### button located on the right side
+download zip file: click on **Download ZIP** button located on the right side
 
 or if you have Git
 
