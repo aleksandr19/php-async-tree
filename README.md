@@ -22,7 +22,7 @@ Also, your browser should support jQuery, so it should be relatively new.  This 
 
 * Download the source code:
 
-download zip file: [http://aziga.x10.mx/image\_tree\_view/php-async-tree.zip](http://aziga.x10.mx/image_tree_view/php-async-tree.zip)
+download zip file: click on #####Download ZIP##### button located on the right side
 
 or if you have Git
 
@@ -85,6 +85,3 @@ Refresh button (looks like a curved arrow) reloads the tree.
 
 ####Contact me:####
 Please email me at aleksandr19@yahoo.com if you have any questions or comments
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aleksandr19/aleksandr19.github.com/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
